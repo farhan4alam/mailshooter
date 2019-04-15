@@ -1,0 +1,116 @@
+{% extends "layout.html" %}
+{% block content %}
+<br><br>
+<head>
+  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+<!-- include summernote css/js -->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+</head>
+<div class="row-fluid">
+
+<div class="reg1">
+  {% with messages= get_flashed_messages(with_categories=True) %}
+  {% if messages %}
+  {% for category,message in messages %}
+  <div class="alert alert-{{category}}">
+    {{message}}
+  </div>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+<form method="POST" action="" enctype="multipart/form-data">
+  {{ form.hidden_tag() }}
+  <fieldset class="form-group">
+    <legend class="border-bottom md-4">An Efficient Mail Shooter</legend>
+    <div class="form-group">
+      {{ form.mail.label(class="form-control-label" )}}
+
+      {% if form.mail.errors %}
+      {{ form.mail(class="form-control form-control-lg is-invalid")}}
+      <div class="invalid-feedback">
+        {% for error in form.mail.errors %}
+        <span>{{ error }}</span>
+        {% endfor %}
+      </div>
+      {% else %}
+      {{ form.mail(class="form-control form-control-lg", autocomplete="off")}}
+      {% endif %}
+      </div>
+
+      <div class="form-group">
+        {{ form.password.label(class="form-control-label")}}
+
+              {% if form.password.errors %}
+              {{ form.mail(class="form-control form-control-lg is-invalid")}}
+              <div class="invalid-feedback">
+                {% for error in form.password.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+              </div>
+              {% else %}
+              {{ form.password(class="form-control form-control-lg")}}
+              {% endif %}
+        </div>
+
+        <div class="form-group">
+          {{ form.subject.label(class="form-control-label")}}
+
+                {% if form.subject.errors %}
+                {{ form.subject(class="form-control form-control-lg is-invalid")}}
+                <div class="invalid-feedback">
+                  {% for error in form.subject.errors %}
+                  <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+                {% else %}
+                {{ form.subject(class="form-control form-control-lg", autocomplete="off")}}
+                {% endif %}
+          </div>
+
+          <div class="form-group">
+            {{ form.content.label(class="form-control-label")}}
+
+                  {% if form.content.errors %}
+                  {{ form.content(class="form-control form-control-lg is-invalid" ,id="summernote")}}
+                  <div class="invalid-feedback">
+                    {% for error in form.content.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                  </div>
+                  {% else %}
+                  {{ form.content(class="form-control form-control-lg textinput", id="summernote")}}
+                  {% endif %}
+            </div>
+
+            <div class="form-group">
+              {{ form.file.label()}}
+
+                    {% if form.file.errors %}
+                    {{ form.file(class="form-control form-control-file is-invalid")}}
+                    <div class="invalid-feedback">
+                      {% for error in form.file.errors %}
+                      <span>{{ error }}</span>
+                      {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.file(class="form-control-file")}}
+                    {% endif %}
+              </div>
+
+
+              <div class="form-group">
+                  {{ form.submit(class="btn btn-outline-info")}}
+                </div>
+  </form>
+
+</div></div><br/>
+<script>
+$(document).ready(function() {
+$('#summernote').summernote();
+});
+</script>
+{% endblock content %}
